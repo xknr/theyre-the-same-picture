@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 SRC_FN = 'ground.webp'
-OUT_FN = 'recursive_pam_hq.png'
+OUT_FN = 'recursive_hq.png'
 
 def create_high_quality_meta(template_path, OUT_FN, iterations=5):
   img = cv2.imread(template_path)
@@ -42,14 +42,13 @@ def create_high_quality_meta(template_path, OUT_FN, iterations=5):
   final_img = (img * 255).astype(np.uint8)
   cv2.imwrite(OUT_FN, final_img)
 
-
 def view_image(fn):
 
   # Load the result you just saved
   result = cv2.imread(fn)
 
   if result is not None:
-    cv2.imshow('Recursive Pam Result', result)
+    cv2.imshow('Recursive Result', result)
     
     # Wait for any key press to close the window
     # This prevents the window from freezing or closing instantly
