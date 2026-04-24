@@ -10,6 +10,15 @@ SCALE = 2
 # Load difference image for mending writing
 diff_img = cv2.imread(DIFFERENCE_FN, cv2.IMREAD_UNCHANGED)
 
+# This function uses an "Inside-Out" Iterative Feedback loop to generate the Droste effect.
+# Instead of rendering all 2^N nested copies individually (which would be 2^iterations work),
+# we reuse the result of the previous iteration as the source for the next.
+#
+# Work: 2 * iterations (Linear)
+# Result: 2^iterations total nested copies (Exponential)
+#
+# This "caching" strategy makes the recursion extremely efficient while allowing the 
+# "mending" patch to propagate through all depth levels naturally.
 def create_high_quality_meta(template_path, diff_patch=None, iterations=5):
   img = cv2.imread(template_path)
   # Upscale initial image for higher resolution "meta" effect
