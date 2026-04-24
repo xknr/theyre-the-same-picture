@@ -31,8 +31,8 @@ def create_high_quality_meta(template_path, diff_patch=None, iterations=5):
   src_pts = np.float32([[0, 0], [w, 0], [w, h], [0, h]])
 
   # Coordinates for the papers (scaled)
-  left_paper = np.float32([[55, -6], [370, 61], [321, 286], [6, 217]]) * SCALE
-  right_paper = np.float32([[406, 51], [725, 121], [676, 353], [356, 282]]) * SCALE
+  left_paper = np.float32([[55-2, -6-1], [370, 61], [321, 286], [6, 217]]) * SCALE
+  right_paper = np.float32([[406-2, 51-1], [725+2, 121-1], [676+2, 353+1], [356-2, 282+1]]) * SCALE
   
 
   for i in range(iterations):
