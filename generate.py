@@ -1,10 +1,15 @@
 import cv2
 import numpy as np
+import os
 
-SRC_FN = 'ground.webp'
-OUT_FN = 'recursive_hq.png'
+SRC_FN = 'data/ground.webp'
+DIFFERENCE_FN = 'data/difference.png'
+OUT_FN = 'out/recursive_hq.png'
 
-def create_high_quality_meta(template_path, OUT_FN, iterations=5):
+# Load difference image for mending writing
+diff_img = cv2.imread(DIFFERENCE_FN, cv2.IMREAD_UNCHANGED)
+
+def create_high_quality_meta(template_path, iterations=5):
   img = cv2.imread(template_path)
   # Convert to float32 for better precision during recursion
   img = img.astype(np.float32) / 255.0
@@ -14,7 +19,8 @@ def create_high_quality_meta(template_path, OUT_FN, iterations=5):
 
   # Coordinates for the papers
   left_paper = np.float32([[45, 120], [210, 115], [215, 280], [35, 290]])
-  right_paper = np.float32([[260, 110], [430, 112], [440, 275], [265, 285]])
+  right_paper = np.float32([[406, 51], [725, 121], [676, 353], [356, 282]])
+  
 
   for i in range(iterations):
     # Use INTER_LANCZOS4 for the perspective warp to handle the mapping better
@@ -40,7 +46,7 @@ def create_high_quality_meta(template_path, OUT_FN, iterations=5):
 
   # Convert back to uint8
   final_img = (img * 255).astype(np.uint8)
-  cv2.imwrite(OUT_FN, final_img)
+  return final_img
 
 def view_image(fn):
 
@@ -58,6 +64,32 @@ def view_image(fn):
   else:
     print("Error: Could not load the output image.")
 
-create_high_quality_meta(SRC_FN, OUT_FN)
+if not os.path.exists('out'):
+  os.makedirs('out')
+
+final_img = create_high_quality_meta(SRC_FN)
+
+# Blit difference image at (515, 323) with alpha blending
+if diff_img is not None:
+  x, y = 515, 323
+  h_f, w_f = diff_img.shape[:2]
+  
+  # Ensure we stay within bounds
+  h_bound = min(h_f, final_img.shape[0] - y)
+  w_bound = min(w_f, final_img.shape[1] - x)
+  
+  if h_bound > 0 and w_bound > 0:
+    fg = diff_img[:h_bound, :w_bound]
+    roi = final_img[y:y+h_bound, x:x+w_bound].astype(np.float32)
+    
+    # Extract alpha and color channels
+    alpha = (fg[:, :, 3:4].astype(np.float32) / 255.0)
+    color = fg[:, :, :3].astype(np.float32)
+    
+    # Blend: result = target * (1 - alpha) + source * alpha
+    blended = roi * (1 - alpha) + color * alpha
+    final_img[y:y+h_bound, x:x+w_bound] = blended.astype(np.uint8)
+
+cv2.imwrite(OUT_FN, final_img)
 view_image(OUT_FN)
 
