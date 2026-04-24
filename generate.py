@@ -5,7 +5,7 @@ import os
 SRC_FN = 'data/ground.webp'
 DIFFERENCE_FN = 'data/difference.png'
 OUT_FN = 'out/recursive_hq.png'
-SCALE = 2
+SCALE = 4
 
 # Load difference image for mending writing
 diff_img = cv2.imread(DIFFERENCE_FN, cv2.IMREAD_UNCHANGED)
