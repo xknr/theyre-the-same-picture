@@ -3,7 +3,7 @@
 ![Preview](preview.jpg)
 
 ## Method
-Treat the image as a recursive data structure. The script uses a linear-time approach ($O(iterations)$) to generate an exponential amount of nested detail ($2^n$ copies). 
+Treat the image as a recursive data structure. The script uses a linear-time approach O(iterations) to generate an exponential amount of nested detail (2^n copies). 
 
 ### Key Features:
 *   **Perspective Mapping:** Vertex mapping for the left and right papers on Pam's desk.
