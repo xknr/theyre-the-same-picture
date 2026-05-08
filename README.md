@@ -12,7 +12,7 @@ Treat the image as a recursive data structure. The script uses a linear-time app
 *   **Perspective Mapping:** Vertex mapping for the left and right papers on Pam's desk.
 *   **Anti-Aliasing:** Gaussian pre-filtering (mip-mapping) to prevent moiré patterns during high-ratio perspective downscales.
 *   **Floating Point Blending:** Uses `float32` accumulation and `INTER_LANCZOS4` interpolation to maintain fidelity across deep recursive layers.
-*   **Difference-Masking:** Strategy to preserve the legibility of the "They're the same picture" text across all depth levels.
+*   **Difference-Masking:** Strategy to preserve the legibility of the caption text across all depth levels.
 
 ## Usage
 ```bash
