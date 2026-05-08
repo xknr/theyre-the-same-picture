@@ -2,9 +2,6 @@
 
 ![Preview](preview.jpg)
 
-*   **SCALE** controls output image scale (currently 4).
-*   **NUM_ITERATIONS** controls recursion depth (currently 8).
-
 ## Method
 Treat the image as a recursive data structure. The script uses a linear-time approach ($O(iterations)$) to generate an exponential amount of nested detail ($2^n$ copies). 
 
@@ -21,3 +18,5 @@ source venv/bin/activate
 python3 -m pip install -r requirements.txt
 python generate_meme.py
 ```
+*   **SCALE** controls output image scale (currently 4).
+*   **NUM_ITERATIONS** controls recursion depth (currently 8).
