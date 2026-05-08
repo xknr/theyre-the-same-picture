@@ -1,6 +1,6 @@
 "Corporate needs you to find the difference" meme turned self-referential.
 
-![Recursive Meme Example](scale1.jpg)
+![Recursive Meme Example](small.jpg)
 
 SCALE controls output image scale (currently 4).
 NUM_ITERATIONS controls recursion depth (currently 8).
