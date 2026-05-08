@@ -1,2 +1,0 @@
-original image has a white ribbon on the left
-thumbs are overwritten by the white placeholder on both sides.
