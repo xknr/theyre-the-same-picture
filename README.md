@@ -16,6 +16,7 @@ Treat the image as a recursive data structure. The script uses a linear-time app
 
 ## Usage
 ```bash
+python3 -m venv venv
 source venv/bin/activate
 python3 -m pip install -r requirements.txt
 python generate_meme.py
